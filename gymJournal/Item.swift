@@ -17,8 +17,8 @@ import SwiftData
 //    }
 //}
 
-struct Item<Destination: View>: Identifiable {
+struct Item: Identifiable {
     let id = UUID()
     let title: String
-    let destination: Destination
+    let destination: Anyview
 }
