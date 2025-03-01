@@ -14,9 +14,6 @@ struct ContentView: View {
         Item(title: "Page 1", destination: AnyView(Page1View())),
         Item(title: "Page 2", destination: AnyView(Page2View())),
         Item(title: "Page 3", destination: AnyView(Page3View())),
-        Item(title: "Page 4", destination: AnyView(Page1View())),
-        Item(title: "Page 5", destination: AnyView(Page2View())),
-        Item(title: "Page 6", destination: AnyView(Page3View()))
     ]
     
     var body: some View {
