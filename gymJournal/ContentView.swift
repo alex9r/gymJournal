@@ -8,59 +8,42 @@
 import SwiftUI
 import SwiftData
 
+
 struct ContentView: View {
-    @Environment(\.modelContext) private var modelContext
-    @Query private var items: [Item]
-
+    let items: [Item<some View>] = [
+        Item(title: "Page 1", destination: Page1View()),
+        Item(title: "Page 2", destination: Page2View()),
+        Item(title: "Page 3", destination: Page3View()),
+        Item(title: "Page 4", destination: Page1View()), // More items for scrolling
+        Item(title: "Page 5", destination: Page2View()),
+        Item(title: "Page 6", destination: Page3View())
+    ]
+    
     var body: some View {
-        NavigationSplitView {
-            List {
-                ForEach(items) { item in
-                    NavigationLink {
-                        Text("Item at \(item.timestamp, format: Date.FormatStyle(date: .numeric, time: .standard))")
-                    } label: {
-                        Text(item.timestamp, format: Date.FormatStyle(date: .numeric, time: .standard))
+        NavigationView {
+            ScrollView {
+                LazyVStack(spacing: 10) {
+                    ForEach(items) { item in
+                        NavigationLink(destination: item.destination) {
+                            Text(item.title)
+                                .frame(maxWidth: .infinity)
+                                .padding()
+                                .background(Color.blue)
+                                .foregroundColor(.white)
+                                .cornerRadius(10)
+                        }
+                        .padding(.horizontal)
                     }
                 }
-                .onDelete(perform: deleteItems)
+                .padding(.top, 10)
             }
-#if os(macOS)
-            .navigationSplitViewColumnWidth(min: 180, ideal: 200)
-#endif
-            .toolbar {
-#if os(iOS)
-                ToolbarItem(placement: .navigationBarTrailing) {
-                    EditButton()
-                }
-#endif
-                ToolbarItem {
-                    Button(action: addItem) {
-                        Label("Add Item", systemImage: "plus")
-                    }
-                }
-            }
-        } detail: {
-            Text("Select an item")
-        }
-    }
-
-    private func addItem() {
-        withAnimation {
-            let newItem = Item(timestamp: Date())
-            modelContext.insert(newItem)
-        }
-    }
-
-    private func deleteItems(offsets: IndexSet) {
-        withAnimation {
-            for index in offsets {
-                modelContext.delete(items[index])
-            }
+            .navigationTitle("Main Menu")
         }
     }
 }
 
-#Preview {
-    ContentView()
-        .modelContainer(for: Item.self, inMemory: true)
+struct ContentView_Previews: PreviewProvider {
+    static var previews: some View {
+        ContentView()
+    }
 }
