@@ -7,18 +7,10 @@
 
 import Foundation
 import SwiftData
-
-//@Model
-//final class Item {
-//    var timestamp: Date
-//    
-//    init(timestamp: Date) {
-//        self.timestamp = timestamp
-//    }
-//}
+import SwiftUICore
 
 struct Item: Identifiable {
     let id = UUID()
     let title: String
-    let destination: Anyview
+    let destination: AnyView
 }

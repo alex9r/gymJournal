@@ -25,7 +25,7 @@ struct Page3View: View {
             Text("Welcome to Page 3")
                 .font(.largeTitle)
                 .padding()
-            
+            Text("")
             Spacer()
         }
         .navigationTitle("Page 3")
