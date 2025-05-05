@@ -11,7 +11,7 @@ import SwiftUI
 struct ContentView: View {
     @State private var searchQuery = ""  // State for search query
     let items: [Item] = [
-        Item(title: "Page 1", destination: AnyView(Page1View())),
+        Item(title: "Page 1", imageName: "deadlift", destination: AnyView(Page1View())),
         Item(title: "Page 2", destination: AnyView(Page2View())),
         Item(title: "Page 3", destination: AnyView(Page3View())),
         Item(title: "Page 4", destination: AnyView(Page1View())),
@@ -55,12 +55,21 @@ struct ContentView: View {
                     LazyVStack(spacing: 10) {
                         ForEach(filteredItems) { item in
                             NavigationLink(destination: item.destination) {
-                                Text(item.title)
-                                    .frame(maxWidth: .infinity)
-                                    .padding()
-                                    .background(Color.blue)
-                                    .foregroundColor(.white)
-                                    .cornerRadius(10)
+                                HStack {
+                                    if let imageName = item.imageName {
+                                        Image(imageName)
+                                            .resizable()
+                                            .scaledToFit()
+                                            .frame(width: 30, height: 30)
+                                    }
+                                    Text(item.title)
+                                        .frame(maxWidth: .infinity)
+                                }
+                            
+                                .padding()
+                                .background(Color.blue)
+                                .foregroundColor(.white)
+                                .cornerRadius(10)
                             }
                             .padding(.horizontal)
                         }

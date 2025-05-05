@@ -12,5 +12,12 @@ import SwiftUICore
 struct Item: Identifiable {
     let id = UUID()
     let title: String
+    let imageName: String?
     let destination: AnyView
+
+    init(title: String, imageName: String? = nil, destination: AnyView) {
+        self.title = title
+        self.imageName = imageName
+        self.destination = destination
+    }
 }
